@@ -53,4 +53,16 @@ def product(request):
             "idMeal": "52925"
         }
     ]
-    return render(request, 'first_app/product.html', {'meals': meals})
+    return render(request, './first_app/product.html', {'meals': meals})
+
+def login(request):
+        return render(request, './first_app/login.html')
+
+def about(request):
+    # print(request.POST)
+    if request.method == 'POST':
+        name = request.POST.get('username')
+        email = request.POST.get('email')
+        return render(request, './first_app/about.html', {'name': name, 'email': email})
+    else:
+        return render(request, './first_app/about.html', {'name': name, 'email': email})
