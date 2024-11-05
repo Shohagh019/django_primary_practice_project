@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2 class="text-center mb-4">Choose Your Favorite Meal</h2>
+<div class="container">
+    <div class="row">
+        {% for i in meals %}
+        <div class="col-md-4 mb-4"> <!-- Adjust col size as needed (col-md-4 for 3 cards per row) -->
+            <div class="card" style="width: 18rem;">
+                <img src="{{ i.strMealThumb }}" class="card-img-top" alt="{{ i.strMeal }}">
+                <div class="card-body">
+                    <h5 class="card-title">{{ i.strMeal }}</h5>
+                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>    
+{% endblock %}
