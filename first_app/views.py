@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from . form import LoginForm
+from . form import LoginForm, validForm
 def product(request):
     meals = [
         {
@@ -84,3 +84,12 @@ def djangoForm(request):
     else:
         form = LoginForm()
     return render(request, './first_app/d-form.html', {'form': form})    
+
+def validatedForm(request):
+    if request.method=='POST':
+        form = validForm(request.POST, request.FILES)
+        if form.is_valid():
+            print(form.cleaned_data)
+    else:
+        form = validForm()
+    return render(request, './first_app/v-form.html', {'form': form})    
