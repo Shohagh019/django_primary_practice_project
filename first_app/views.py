@@ -1,5 +1,5 @@
 from django.shortcuts import render
-
+from . form import LoginForm
 def product(request):
     meals = [
         {
@@ -68,3 +68,19 @@ def about(request):
         return render(request, './first_app/about.html', {'name': name, 'email': email, 'select': select})
     else:
         return render(request, './first_app/about.html')
+
+
+
+def djangoForm(request):
+    if request.method=='POST':
+        form = LoginForm(request.POST, request.FILES)
+        if form.is_valid():
+            file = form.cleaned_data['file'] 
+            with open('./first_app/upload/'+ file.name, 'wb+') as destination:
+                for chunk in file.chunks():
+                    destination.write(chunk)
+            print(form.cleaned_data)
+            return render(request, './first_app/d-form.html', {'form': form})
+    else:
+        form = LoginForm()
+    return render(request, './first_app/d-form.html', {'form': form})    
