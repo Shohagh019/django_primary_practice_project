@@ -38,3 +38,15 @@ class validForm(forms.Form):
     age = forms.IntegerField(validators=[validators.MaxValueValidator(30, message='Age Must Maximum 30'), validators.MinValueValidator(18, message='Age must minimum 18')])
     file = forms.FileField(validators=[validators.FileExtensionValidator(allowed_extensions=['pdf'], message='File must be in pdf format!')])
 
+class validPass(forms.Form):
+    name = forms.CharField(validators=[validators.MinLengthValidator(10, message='Name must be at least 10 characters!')])
+    password = forms.CharField(widget=forms.PasswordInput)
+    confirm_password = forms.CharField(widget=forms.PasswordInput)
+
+    def clean(self):
+        cleaned_data = super().clean()
+        name_val = self.cleaned_data['name']
+        pass_val = self.cleaned_data['password']
+        repass_val = self.cleaned_data['confirm_password']
+        if pass_val != repass_val:
+            raise forms.ValidationError('Password does not match!')

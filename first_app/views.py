@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from . form import LoginForm, validForm
+from . form import LoginForm, validForm, validPass
 def product(request):
     meals = [
         {
@@ -93,3 +93,12 @@ def validatedForm(request):
     else:
         form = validForm()
     return render(request, './first_app/v-form.html', {'form': form})    
+
+def passValidator(request):
+    if request.method == 'POST':
+        form = validPass(request.POST, request.FILES)
+        if form.is_valid():
+            print(form.cleaned_data)
+    else:
+        form = validPass()
+    return render (request, './first_app/p-form.html', {'form': form})            
